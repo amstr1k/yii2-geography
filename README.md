@@ -2,6 +2,9 @@ Geography
 =========
 Geography
 
+beta 0.1b
+----------
+
 Installation
 ------------
 

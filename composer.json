@@ -1,0 +1,21 @@
+{
+    "name": "amstr1k/yii2-geography",
+    "description": "Geography module with countries and cities of GEONAMES",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension", "geography", "countries", "city", "geonames"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Amstr1k",
+            "email": "sferryf@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "amstr1k\\geography\\": ""
+        }
+    }
+}

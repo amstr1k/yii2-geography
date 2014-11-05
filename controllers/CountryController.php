@@ -8,7 +8,7 @@
 
 namespace amstr1k\geography\controllers;
 
-use backend\models\search\CountrySearch;
+use amstr1k\geography\models\backend\CountrySearch;
 use Yii;
 use yii\web\Controller;
 

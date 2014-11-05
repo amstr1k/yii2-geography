@@ -6,7 +6,7 @@
  * Time: 2:31 PM
  */
 
-namespace amstr1k\models;
+namespace amstr1k\geography\models;
 
 use yii\db\ActiveQuery;
 

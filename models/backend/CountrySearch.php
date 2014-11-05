@@ -1,11 +1,11 @@
 <?php
 
-namespace amstr1k\models\backend;
+namespace amstr1k\geography\models\backend;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use amstr1k\models\Country;
+use amstr1k\geography\models\Country;
 
 class CountrySearch extends Country
 {

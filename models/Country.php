@@ -1,13 +1,8 @@
 <?php
 
-namespace amstr1k\models;
+namespace amstr1k\geography\models;
 
 use Yii;
-use yii\behaviors\BlameableBehavior;
-use yii\behaviors\SluggableBehavior;
-use yii\behaviors\TimestampBehavior;
-use yii\db\Expression;
-use yii\helpers\Inflector;
 
 class Country extends \yii\db\ActiveRecord
 {

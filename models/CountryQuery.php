@@ -15,7 +15,7 @@ class CountryQuery extends ActiveQuery
     public function published()
     {
         $this->andWhere(['status' => Country::STATUS_PUBLISHED]);
-        $this->andWhere('article.published_at < NOW()');
+        $this->andWhere('country.published_at < NOW()');
         return $this;
     }
 } 

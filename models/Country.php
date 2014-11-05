@@ -20,7 +20,7 @@ class Country extends \yii\db\ActiveRecord
   }
 
   /**
-   * @return ArticleQuery
+   * @return CountryQuery
    */
   public static function find ()
   {

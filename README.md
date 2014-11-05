@@ -26,7 +26,9 @@ Configuration
 
 Add yii2-geography to module section of each application config:
 
+```php
 'modules' => [
     'geography' => [
         'class' => 'amstr1k\geography\Module'
 ]
+```

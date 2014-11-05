@@ -2,9 +2,6 @@ Geography
 =========
 Geography
 
-beta 0.1b
-----------
-
 Installation
 ------------
 
@@ -19,7 +16,17 @@ php composer.phar require --prefer-dist yii2-geography/yii2-geography "*"
 or add
 
 ```
-"yii2-geography/yii2-geography": "*"
+"amstr1k/yii2-geography": "*"
 ```
 
 to the require section of your `composer.json` file.
+
+Configuration
+-------------
+
+Add yii2-geography to module section of each application config:
+
+'modules' => [
+    'geography' => [
+        'class' => 'amstr1k\geography\Module'
+]

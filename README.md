@@ -1,6 +1,5 @@
-Geography
-=========
-Geography
+Geography module for Yii 2 Advanced Application Template
+========================================================
 
 Installation
 ------------
@@ -10,7 +9,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist yii2-geography/yii2-geography "*"
+php composer.phar require --prefer-dist amstr1k/yii2-geography "*"
 ```
 
 or add

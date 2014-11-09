@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel amstr1k\geography\models\backend\CitySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title                   = Yii::t('geography', 'City');
+$this->title                   = Yii::t('geography', 'CITIES');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="city-index">

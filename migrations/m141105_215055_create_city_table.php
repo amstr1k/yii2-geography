@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m141105_214847_create_country_table extends Migration
+class m141105_215055_create_city_table extends Migration
 {
     public function safeUp()
     {
@@ -12,17 +12,19 @@ class m141105_214847_create_country_table extends Migration
         $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB';
       }
 
-      $this->createTable('{{%country}}', [
+      $this->createTable('{{%city}}', [
         'id' => 'pk',
         'geoname_id' => Schema::TYPE_INTEGER . '(11)',
-        'capital_id' => Schema::TYPE_INTEGER . '(11)',
         'title' => Schema::TYPE_STRING . '(255)',
-        'text' => Schema::TYPE_TEXT,
+        'region' => Schema::TYPE_STRING . '(255)',
+        'identifier' => Schema::TYPE_STRING . '(255)',
+        'latitude' => Schema::TYPE_DECIMAL,
+        'longitude' => Schema::TYPE_DECIMAL,
+        'alternate_names' => Schema::TYPE_STRING . '(5000)',
+        'is_published' => 'tinyint(1) NOT NULL DEFAULT 0',
+        'country_id' => Schema::TYPE_INTEGER . '(11)',
         'author_id' => Schema::TYPE_INTEGER . '(11)',
         'updater_id' => Schema::TYPE_INTEGER . '(11)',
-        'worldpart' => Schema::TYPE_STRING . '(255)',
-        'iso' => Schema::TYPE_STRING . '(2)',
-        'is_published' => 'tinyint(1) NOT NULL DEFAULT 0',
         'created_at' => Schema::TYPE_INTEGER . '(11) NOT NULL',
         'updated_at' => Schema::TYPE_INTEGER . '(11) NOT NULL',
       ], $tableOptions);
@@ -30,6 +32,6 @@ class m141105_214847_create_country_table extends Migration
 
     public function safeDown()
     {
-      $this->dropTable('{{%country}}');
+      $this->dropTable('{{%city}}');
     }
 }

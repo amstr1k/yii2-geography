@@ -7,6 +7,9 @@ use yii\db\ActiveRecord;
 
 class Country extends ActiveRecord
 {
+  const COUNTRY_UNPUBLISHED = 0;
+  const COUNTRY_PUBLISHED = 1;
+
   /**
    * @inheritdoc
    */

@@ -41,8 +41,9 @@ class City extends ActiveRecord
   public function attributeLabels()
   {
     return [
-      'id'         => Yii::t('geography', 'ID'),
-      'title'      => Yii::t('geography', 'TITLE'),
+      'id'      => Yii::t('geography', 'ID'),
+      'title'   => Yii::t('geography', 'TITLE'),
+      'country' => Yii::t('geography', 'COUNTRY'),
       'country_id' => Yii::t('geography', 'COUNTRY'),
     ];
   }

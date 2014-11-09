@@ -11,6 +11,15 @@ $this->title                   = Yii::t('geography', 'CITIES');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="city-index">
+
+  <p>
+    <?= Html::a(
+      Yii::t('geography', 'CREATE_CITY'),
+      ['create'],
+      ['class' => 'btn btn-success']
+    ) ?>
+  </p>
+
   <?php \yii\widgets\Pjax::begin(); ?>
   <?= GridView::widget([
     'dataProvider' => $dataProvider,
@@ -26,8 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
         },
       ],
       [
-        'options' => ['style' => 'width: 10%'],
-        'class'   => 'yii\grid\ActionColumn'
+        'options' => ['style' => 'width: 5%'],
+        'class'   => 'yii\grid\ActionColumn',
+        'template'=>'{update} {delete}'
       ],
     ],
   ]);

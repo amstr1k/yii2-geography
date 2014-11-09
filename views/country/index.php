@@ -12,7 +12,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="country-index">
 
-  <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+  <p>
+    <?= Html::a(
+      Yii::t('geography', 'CREATE_COUNTRY'),
+      ['create'],
+      ['class' => 'btn btn-success']
+    ) ?>
+  </p>
 
   <?= GridView::widget([
     'dataProvider' => $dataProvider,
@@ -22,8 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
       'id',
       'title',
       [
-        'options' => ['style' => 'width: 10%'],
-        'class'   => 'yii\grid\ActionColumn'
+        'options' => ['style' => 'width: 5%'],
+        'class'   => 'yii\grid\ActionColumn',
+        'template'=>'{update} {delete}'
       ],
     ],
   ]); ?>

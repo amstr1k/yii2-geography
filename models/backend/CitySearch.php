@@ -21,7 +21,7 @@ class CitySearch extends City
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'country_id'], 'integer'],
             [['country'], 'string'],
             [['title', 'country'], 'safe'],
         ];
@@ -52,8 +52,12 @@ class CitySearch extends City
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['id' => $this->id])
-          ->andFilterWhere(['like', City::tableName() . '.title', $this->title])
+        $query->andFilterWhere([
+          'id' => $this->id,
+          'country_id' => $this->country_id,
+        ]);
+
+        $query->andFilterWhere(['like', City::tableName() . '.title', $this->title])
           ->andFilterWhere(['like', Country::tableName() . '.title', $this->country]);
 
         return $dataProvider;

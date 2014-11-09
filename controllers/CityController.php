@@ -8,21 +8,21 @@
 
 namespace amstr1k\geography\controllers;
 
-use amstr1k\geography\models\backend\CountrySearch;
+use amstr1k\geography\models\backend\CitySearch;
 use Yii;
 use yii\web\Controller;
 
-class CountryController extends Controller
+class CityController extends Controller
 {
   public function actionIndex()
   {
-    $searchModel        = new CountrySearch();
-    $dataProvider       = $searchModel->search(Yii::$app->request->queryParams);
+    $searchModel = new CitySearch();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
     $dataProvider->sort = [
-      'defaultOrder' => ['id' => SORT_DESC]
+      'defaultOrder'=>['id'=>SORT_DESC]
     ];
     return $this->render('index', [
-      'searchModel'  => $searchModel,
+      'searchModel' => $searchModel,
       'dataProvider' => $dataProvider,
     ]);
   }

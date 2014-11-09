@@ -3,13 +3,14 @@
 namespace amstr1k\geography\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
-class Country extends \yii\db\ActiveRecord
+class Country extends ActiveRecord
 {
   /**
    * @inheritdoc
    */
-  public static function tableName ()
+  public static function tableName()
   {
     return '{{%country}}';
   }
@@ -17,7 +18,7 @@ class Country extends \yii\db\ActiveRecord
   /**
    * @return CountryQuery
    */
-  public static function find ()
+  public static function find()
   {
     return new CountryQuery(get_called_class());
   }
@@ -25,7 +26,7 @@ class Country extends \yii\db\ActiveRecord
   /**
    * @inheritdoc
    */
-  public function rules ()
+  public function rules()
   {
     return [
       [['title'], 'required'],
@@ -36,11 +37,11 @@ class Country extends \yii\db\ActiveRecord
   /**
    * @inheritdoc
    */
-  public function attributeLabels ()
+  public function attributeLabels()
   {
     return [
-      'id'    => Yii::t('common', 'ID'),
-      'title' => Yii::t('common', 'Title'),
+      'id'    => Yii::t('geography', 'ID'),
+      'title' => Yii::t('geography', 'TITLE'),
     ];
   }
 }

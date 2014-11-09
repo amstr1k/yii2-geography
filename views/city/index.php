@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
       'id',
       'title',
       [
-        'attribute' => 'country',
+        'attribute' => 'country_id',
         'value'     => function ($model) {
           return $model->country ? $model->country->title : null;
         },

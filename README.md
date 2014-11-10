@@ -1,4 +1,4 @@
-Geography module for Yii 2 Advanced Application Template
+Geography module for Yii 2
 ========================================================
 
 Installation

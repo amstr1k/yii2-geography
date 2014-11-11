@@ -31,3 +31,5 @@ Add yii2-geography to module section of each application config:
         'class' => 'amstr1k\geography\Module'
 ]
 ```
+Apply migrations with console command
+ - yii migrate --migrationPath=@amstr1k/geography/migrations

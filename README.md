@@ -35,9 +35,9 @@ Add yii2-geography to module section of each application config:
 Add yii2-geography to console config:
 
 ```php
-'message-migrate' => [
-  'class'=>'console\controllers\MessageMigrateController'
-]
+'geonames-integration'=>[
+  'class'=>'amstr1k\geography\commands\GeoNamesController'
+],
 ```
 
 Apply migrations with console command

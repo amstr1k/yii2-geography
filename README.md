@@ -27,9 +27,21 @@ Add yii2-geography to module section of each application config:
 
 ```php
 'modules' => [
-    'geography' => [
-        'class' => 'amstr1k\geography\Module'
+  'geography' => [
+    'class' => 'amstr1k\geography\Module'
 ]
 ```
+
+Add yii2-geography to console config:
+
+```php
+'message-migrate' => [
+  'class'=>'console\controllers\MessageMigrateController'
+]
+```
+
 Apply migrations with console command
  - yii migrate --migrationPath=@amstr1k/geography/migrations
+
+ Run command to import countries and cities
+ - yii geonames-integration

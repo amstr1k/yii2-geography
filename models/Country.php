@@ -4,6 +4,7 @@ namespace amstr1k\geography\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
 
 class Country extends ActiveRecord
 {
@@ -16,6 +17,16 @@ class Country extends ActiveRecord
   public static function tableName()
   {
     return '{{%country}}';
+  }
+
+  /**
+   * @inheritdoc
+   */
+  public function behaviors()
+  {
+    return [
+      TimestampBehavior::className(),
+    ];
   }
 
   /**
@@ -33,7 +44,10 @@ class Country extends ActiveRecord
   {
     return [
       [['title'], 'required'],
-      [['title'], 'string', 'max' => 512]
+      [['geoname_id', 'capital_id'], 'integer'],
+      [['title'], 'string', 'max' => 512],
+      [['worldpart'], 'string', 'max' => 255],
+      [['iso', 'is_published', 'description'], 'safe']
     ];
   }
 
@@ -43,8 +57,9 @@ class Country extends ActiveRecord
   public function attributeLabels()
   {
     return [
-      'id'    => Yii::t('geography', 'ID'),
-      'title' => Yii::t('geography', 'TITLE'),
+      'id'           => Yii::t('geography', 'ID'),
+      'title'        => Yii::t('geography', 'TITLE'),
+      'is_published' => Yii::t('geography', 'PUBLISHED'),
     ];
   }
 }

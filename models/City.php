@@ -5,6 +5,7 @@ namespace amstr1k\geography\models;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\behaviors\TimestampBehavior;
+use amstr1k\geography\Module;
 
 class City extends ActiveRecord
 {
@@ -56,14 +57,14 @@ class City extends ActiveRecord
   public function attributeLabels()
   {
     return [
-      'id'           => Yii::t('geography', 'ID'),
-      'title'        => Yii::t('geography', 'TITLE'),
-      'country'      => Yii::t('geography', 'COUNTRY'),
-      'country_id'   => Yii::t('geography', 'COUNTRY'),
-      'latitude'     => Yii::t('geography', 'LATITUDE'),
-      'longitude'    => Yii::t('geography', 'LONGITUDE'),
-      'is_published' => Yii::t('geography', 'PUBLISHED'),
-      'identifier'   => Yii::t('geography', 'IDENTIFIER'),
+      'id'           => Module::t('geography', 'ID'),
+      'title'        => Module::t('geography', 'TITLE'),
+      'country'      => Module::t('geography', 'COUNTRY'),
+      'country_id'   => Module::t('geography', 'COUNTRY'),
+      'latitude'     => Module::t('geography', 'LATITUDE'),
+      'longitude'    => Module::t('geography', 'LONGITUDE'),
+      'is_published' => Module::t('geography', 'PUBLISHED'),
+      'identifier'   => Module::t('geography', 'IDENTIFIER'),
     ];
   }
 

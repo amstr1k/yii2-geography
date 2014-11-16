@@ -2,19 +2,20 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use amstr1k\geography\Module;
 
 /* @var $this yii\web\View */
 /* @var $searchModel amstr1k\geography\models\backend\CountrySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title                   = Yii::t('geography', 'COUNTRIES');
+$this->title                   = Module::t('geography', 'COUNTRIES');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="country-index">
 
   <p>
     <?= Html::a(
-      Yii::t('geography', 'CREATE_COUNTRY'),
+      Module::t('geography', 'CREATE_COUNTRY'),
       ['create'],
       ['class' => 'btn btn-success']
     ) ?>
@@ -28,9 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
       'id',
       'title',
       [
-        'options' => ['style' => 'width: 5%'],
-        'class'   => 'yii\grid\ActionColumn',
-        'template'=>'{update} {delete}'
+        'options'  => ['style' => 'width: 5%'],
+        'class'    => 'yii\grid\ActionColumn',
+        'template' => '{update} {delete}'
       ],
     ],
   ]); ?>

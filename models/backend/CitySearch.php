@@ -9,7 +9,7 @@ use yii\data\ActiveDataProvider;
 use amstr1k\geography\models\City;
 
 /**
- * ArticleSearch represents the model behind the search form about `common\models\Article`.
+ * CitySearch represents the model behind the search form about `amstr1k\geography\models\City`.
  */
 class CitySearch extends City
 {

@@ -2,19 +2,20 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use amstr1k\geography\Module;
 
 /* @var $this yii\web\View */
 /* @var $searchModel amstr1k\geography\models\backend\CitySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title                   = Yii::t('geography', 'CITIES');
+$this->title                   = Module::t('geography', 'CITIES');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="city-index">
 
   <p>
     <?= Html::a(
-      Yii::t('geography', 'CREATE_CITY'),
+      Module::t('geography', 'CREATE_CITY'),
       ['create'],
       ['class' => 'btn btn-success']
     ) ?>
@@ -35,9 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
         },
       ],
       [
-        'options' => ['style' => 'width: 5%'],
-        'class'   => 'yii\grid\ActionColumn',
-        'template'=>'{update} {delete}'
+        'options'  => ['style' => 'width: 5%'],
+        'class'    => 'yii\grid\ActionColumn',
+        'template' => '{update} {delete}'
       ],
     ],
   ]);

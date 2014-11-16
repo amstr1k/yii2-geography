@@ -63,7 +63,7 @@ class CityController extends Controller
   }
 
   /**
-   * Finds the Article model based on its primary key value.
+   * Finds the City model based on its primary key value.
    * If the model is not found, a 404 HTTP exception will be thrown.
    * @param integer $id
    * @return City the loaded model

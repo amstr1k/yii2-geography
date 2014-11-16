@@ -15,8 +15,7 @@ class CityQuery extends ActiveQuery
 {
     public function published()
     {
-        $this->andWhere(['status' => City::STATUS_PUBLISHED]);
-        $this->andWhere('article.published_at < NOW()');
+        $this->andWhere('city.published_at < NOW()');
         return $this;
     }
 } 

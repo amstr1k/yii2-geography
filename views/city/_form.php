@@ -2,7 +2,9 @@
 
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
-use yii\web\JsExpression;
+use yii\helpers\ArrayHelper;
+use amstr1k\geography\models\Country;
+use amstr1k\geography\Module;
 
 /* @var $this yii\web\View */
 /* @var $model amstr1k\geography\models\City */
@@ -11,22 +13,23 @@ use yii\web\JsExpression;
 
 <div class="city-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+  <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
+  <?= $form->field($model, 'title')->textInput(['maxlength' => 255]) ?>
 
-    <?= $form->field($model, 'country_id')->dropDownList(\yii\helpers\ArrayHelper::map(
-        \amstr1k\geography\models\Country::find()->where(['is_published'=>\amstr1k\geography\models\Country::COUNTRY_PUBLISHED])->all(),
-        'id',
-        'title'
-    ), ['prompt'=>'']) ?>
+  <?= $form->field($model, 'country_id')->dropDownList(ArrayHelper::map(
+    Country::find()->where(['is_published' => Country::COUNTRY_PUBLISHED])->all(),
+    'id',
+    'title'
+  ), ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'is_published')->label(Yii::t('geography', 'IS_PUBLISHED'))->checkbox() ?>
+  <?= $form->field($model, 'is_published')->label(Module::t('geography', 'IS_PUBLISHED'))->checkbox() ?>
 
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('geography', 'CREATE') : Yii::t('geography', 'UPDATE'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
+  <div class="form-group">
+    <?= Html::submitButton($model->isNewRecord ? Module::t('geography', 'CREATE') : Module::t('geography',
+        'UPDATE'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+  </div>
 
-    <?php ActiveForm::end(); ?>
+  <?php ActiveForm::end(); ?>
 
 </div>

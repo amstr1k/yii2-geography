@@ -56,7 +56,9 @@ class GeoNamesController extends Controller
 
       if(preg_match('/\.zip$/', $zip_name))
       {
-        `unzip -o $zip_name -d $this->tempDir`;
+        $zip = new \ZipArchive();
+        $zip->open($zip_name);
+        $zip->extractTo($this->tempDir);
       }
 
       $unziped_name = str_replace('.zip', '.txt', $zip_name);

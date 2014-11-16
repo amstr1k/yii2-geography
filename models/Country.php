@@ -47,7 +47,7 @@ class Country extends ActiveRecord
       [['geoname_id', 'capital_id'], 'integer'],
       [['title'], 'string', 'max' => 512],
       [['worldpart'], 'string', 'max' => 255],
-      [['iso', 'is_published', 'description'], 'safe']
+      [['iso', 'is_published'], 'safe']
     ];
   }
 

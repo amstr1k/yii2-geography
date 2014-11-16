@@ -30,6 +30,7 @@ class GeoNamesController extends Controller
   {
     $dsn_array_attribute = explode('=', Yii::$app->db->dsn);
     $db_name             = $dsn_array_attribute[2];
+    $table_prefix        = Yii::$app->db->tablePrefix;
 
     BaseFileHelper::createDirectory($this->tempDir, 0777);
 
@@ -39,7 +40,9 @@ class GeoNamesController extends Controller
       if(!file_exists($zip_name))
       {
         if(!$tmp_file = fopen($zip_name, 'w'))
+        {
           return;
+        }
 
         $curl = curl_init();
         $url  = $this->baseUrl . $filename;
@@ -52,7 +55,9 @@ class GeoNamesController extends Controller
       }
 
       if(preg_match('/\.zip$/', $zip_name))
+      {
         `unzip -o $zip_name -d $this->tempDir`;
+      }
 
       $unziped_name = str_replace('.zip', '.txt', $zip_name);
 
@@ -73,12 +78,12 @@ class GeoNamesController extends Controller
       }
 
       $fields = ArrayHelper::getColumn(
-        Yii::$app->db->createCommand("SHOW COLUMNS FROM {$table_name}")->query(),
+        Yii::$app->db->createCommand("SHOW COLUMNS FROM {$table_prefix}{$table_name}")->query(),
         'Field'
       );
 
-      Yii::$app->db->createCommand("TRUNCATE {$table_name}")->query();
-      $sql = "LOAD DATA LOCAL INFILE '" . $unziped_name . "' INTO TABLE " . $table_name . ' CHARACTER SET utf8 FIELDS TERMINATED BY \"\t\" LINES TERMINATED BY \"\n\" (' . implode(', ',
+      Yii::$app->db->createCommand("TRUNCATE {$table_prefix}{$table_name}")->query();
+      $sql = "LOAD DATA LOCAL INFILE '" . $unziped_name . "' INTO TABLE " . $table_prefix . $table_name . ' CHARACTER SET utf8 FIELDS TERMINATED BY \"\t\" LINES TERMINATED BY \"\n\" (' . implode(', ',
           $fields) . ')';
 
       $db = Yii::$app->db;
@@ -89,34 +94,39 @@ class GeoNamesController extends Controller
 
     BaseFileHelper::removeDirectory($this->tempDir);
 
-    Yii::$app->db->createCommand("DELETE FROM geoname_country WHERE geoname_id = 0")->query();
+    Yii::$app->db->createCommand("DELETE FROM {$table_prefix}geoname_country WHERE geoname_id = 0")->query();
 
-    $sql = "SELECT geoname_country.*,
-            (SELECT alternate_name FROM geoname_alternative_name WHERE geoname_alternative_name.geoname_id = geoname_country.geoname_id LIMIT 0,1) as ru_name
-            FROM geoname_country ";
+    $sql = "SELECT {$table_prefix}geoname_country.*,
+            (SELECT alternate_name FROM {$table_prefix}geoname_alternative_name WHERE {$table_prefix}geoname_alternative_name.geoname_id = {$table_prefix}geoname_country.geoname_id LIMIT 0,1) as ru_name
+            FROM {$table_prefix}geoname_country ";
 
     $geoname_countries = Yii::$app->db->createCommand($sql)->query();
     foreach($geoname_countries as $geoname_country)
     {
       if(!$country = Country::findOne(['iso' => $geoname_country['iso']]))
+      {
         $country = new Country();
+      }
 
       $attributes = [
         'iso'          => $geoname_country['iso'],
         'title'        => $geoname_country['ru_name'],
         'worldpart'    => $geoname_country['continent'],
         'geoname_id'   => $geoname_country['geoname_id'],
-        'description'  => '-',
         'is_published' => 1
       ];
 
       if(!$country->getIsNewRecord())
+      {
         $attributes = ['geoname_id' => $geoname_country['geoname_id']];
+      }
 
-      $capital_id = $this->getCapitalIdByName($geoname_country['capital'], $geoname_country['iso']);
+      $capital_id = $this->getCapitalIdByName($geoname_country['capital'], $geoname_country['iso'], $table_prefix);
 
       if(($capital_id) && ($country->capital_id <> $capital_id))
+      {
         $attributes['capital_id'] = $capital_id;
+      }
 
       $country->setAttributes($attributes);
       $country->save();
@@ -124,18 +134,20 @@ class GeoNamesController extends Controller
 
     $country_ids = [];
 
-    foreach(Yii::$app->db->createCommand("SELECT id, iso FROM country")->query() as $item)
+    foreach(Yii::$app->db->createCommand("SELECT id, iso FROM {$table_prefix}country")->query() as $item)
+    {
       $country_ids[$item['iso']] = $item['id'];
+    }
 
     $sql = "SELECT
-              geoname_city.geoname_id as geoname_id,
-              geoname_city.alternate_names as alternate_names,
-              geoname_city.latitude as latitude,
-              geoname_city.longitude as longitude,
-              geoname_city.country_code as country_code,
-              geoname_alternative_name.alternate_name as ru_name
-            FROM geoname_city
-            JOIN geoname_alternative_name ON geoname_alternative_name.geoname_id = geoname_city.geoname_id
+              {$table_prefix}geoname_city.geoname_id as geoname_id,
+              {$table_prefix}geoname_city.alternate_names as alternate_names,
+              {$table_prefix}geoname_city.latitude as latitude,
+              {$table_prefix}geoname_city.longitude as longitude,
+              {$table_prefix}geoname_city.country_code as country_code,
+              {$table_prefix}geoname_alternative_name.alternate_name as ru_name
+            FROM {$table_prefix}geoname_city
+            JOIN {$table_prefix}geoname_alternative_name ON {$table_prefix}geoname_alternative_name.geoname_id = {$table_prefix}geoname_city.geoname_id
             GROUP BY geoname_id ";
 
     $geoname_cities = Yii::$app->db->createCommand($sql)->query();
@@ -166,7 +178,9 @@ class GeoNamesController extends Controller
       }
 
       if(!$city = City::findOne(['geoname_id' => $geoname_city['geoname_id']]))
+      {
         $city = new City();
+      }
 
       $identifier = strtolower($this->translitRussian($russian_city_title));
       $identifier = str_replace('  ', ' ', $identifier);
@@ -182,7 +196,8 @@ class GeoNamesController extends Controller
         'is_published' => 1,
       ];
 
-      if(!$city->getIsNewRecord()) {
+      if(!$city->getIsNewRecord())
+      {
         unset($attributes['title']);
         unset($attributes['identifier']);
         unset($attributes['country_id']);
@@ -194,24 +209,30 @@ class GeoNamesController extends Controller
     }
   }
 
-  function getCapitalIdByName($capital_name, $country_iso)
+  function getCapitalIdByName($capital_name, $country_iso, $table_prefix)
   {
     $sql = "SELECT cc.id as capital_id
-            FROM city as cc
-            JOIN geoname_city AS gcc ON gcc.geoname_id = cc.geoname_id
+            FROM " . $table_prefix . "city as cc
+            JOIN " . $table_prefix . "geoname_city AS gcc ON gcc.geoname_id = cc.geoname_id
             WHERE gcc.name= \"" . $capital_name . "\" AND gcc.country_code=\"" . $country_iso . "\"";
     $capital_id = Yii::$app->db->createCommand($sql)->queryOne();
     if($capital_id)
+    {
       return $capital_id;
+    }
     else
+    {
       return false;
+    }
   }
 
   function translitRussian($input, $encoding = 'utf-8')
   {
     $encoding = strtolower($encoding);
     if($encoding != 'utf-8')
+    {
       $input = iconv($encoding, 'utf-8', $input);
+    }
 
     $arrRus = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м',
       'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ь',
@@ -229,8 +250,12 @@ class GeoNamesController extends Controller
     $result = str_replace($arrRus, $arrEng, $input);
 
     if($encoding != 'utf-8')
+    {
       return iconv('utf-8', $encoding, $result);
+    }
     else
+    {
       return $result;
+    }
   }
 }

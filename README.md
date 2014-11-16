@@ -41,7 +41,7 @@ Add yii2-geography to console config:
 ```
 
 Apply migrations with console command
- - yii migrate --migrationPath=@amstr1k/geography/migrations
+`yii migrate --migrationPath=@amstr1k/geography/migrations`
 
- Run command to import countries and cities
- - yii geonames-integration
+Run command to import countries and cities
+`yii geonames-integration`

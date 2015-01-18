@@ -19,7 +19,8 @@
   ],
   "require": {
     "yiisoft/yii2": "*",
-    "ext-zlib": ">=1.1.0"
+    "ext-zlib": ">=1.1.0",
+    "kartik-v/yii2-widget-select2": "*"
   },
   "autoload": {
     "psr-4": {

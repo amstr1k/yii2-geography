@@ -8,11 +8,14 @@
 
 namespace amstr1k\geography\controllers;
 
+use amstr1k\geography\models\Country;
+use amstr1k\geography\Module;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use amstr1k\geography\models\City;
 use amstr1k\geography\models\backend\CitySearch;
+use yii\helpers\Json;
 
 class CityController extends Controller
 {
@@ -76,5 +79,23 @@ class CityController extends Controller
     } else {
       throw new NotFoundHttpException('The requested page does not exist.');
     }
+  }
+
+  public function actionAjaxGetCountry($search = null, $id = null)
+  {
+    $out = ['more' => false];
+    if (!is_null($search)) {
+      $query = Yii::$app->db;
+      $data = $query->createCommand('SELECT id, title as text from country where title like "%'. $search .'%" limit 20 ')
+        ->queryAll();
+      $out['results'] = array_values($data);
+    }
+    elseif ($id > 0) {
+      $out['results'] = ['id' => $id, 'text' => Country::findOne(['id' => $id])->title];
+    }
+    else {
+      $out['results'] = ['id' => 0, 'text' => Module::t('geography', 'NO_MATCHING_RECORDS_FOUND')];
+    }
+    echo Json::encode($out);
   }
 } 
